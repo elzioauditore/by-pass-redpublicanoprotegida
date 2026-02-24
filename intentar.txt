@@ -1,0 +1,55 @@
+🔹 Opción 1: Instalar un Adaptador de Red Virtual (la más limpia)
+
+Windows permite crear adaptadores virtuales que simulan una tarjeta Ethernet.
+
+Método con Administrador de dispositivos:
+
+Presiona Win + X
+
+Abre Administrador de dispositivos
+
+Clic en Acción
+
+Selecciona Agregar hardware heredado
+
+Siguiente → Instalar el hardware manualmente
+
+Elige Adaptadores de red
+
+Fabricante: Microsoft
+
+Selecciona:
+👉 Microsoft KM-TEST Loopback Adapter
+
+Eso crea una tarjeta Ethernet virtual que Windows detecta como conectada.
+
+🔹 Opción 2: Usar Hyper-V (si tienes Windows Pro)
+
+Si usas Hyper-V (solo en Windows Pro o superior):
+
+Activa Hyper-V en:
+
+Panel de control → Programas → Activar o desactivar características de Windows
+
+Abre el Administrador de Hyper-V
+
+Crea un Virtual Switch externo o interno
+
+Eso crea un adaptador de red virtual activo.
+
+🔹 Opción 3: Usar software como VMware
+
+Programas como:
+
+VMware Workstation
+
+VirtualBox
+
+Crean automáticamente adaptadores de red virtuales al instalarse.
+
+Aunque no tengas una máquina virtual corriendo, el adaptador aparece como conectado.
+
+🔹 Opción 4: Puente falso (método físico barato)
+
+Existe algo llamado dummy plug RJ45, que es básicamente un conector que engaña al puerto Ethernet haciéndole creer que hay cable conectado.
+Cuesta muy poco en línea.
