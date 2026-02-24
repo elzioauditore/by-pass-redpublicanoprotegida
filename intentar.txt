@@ -53,3 +53,59 @@ Aunque no tengas una máquina virtual corriendo, el adaptador aparece como conec
 
 Existe algo llamado dummy plug RJ45, que es básicamente un conector que engaña al puerto Ethernet haciéndole creer que hay cable conectado.
 Cuesta muy poco en línea.
+
+
+🔹 1️⃣ Ver tus adaptadores de red
+Get-NetAdapter
+
+Te mostrará nombre, estado, velocidad, etc.
+
+🔹 2️⃣ Habilitar un adaptador existente
+
+Si ya tienes uno pero está deshabilitado:
+
+Enable-NetAdapter -Name "Ethernet"
+
+Para deshabilitar:
+
+Disable-NetAdapter -Name "Ethernet"
+🔹 3️⃣ Crear un adaptador virtual (Loopback)
+
+La forma clásica es instalar el Microsoft KM-TEST Loopback Adapter usando devcon (herramienta de Microsoft).
+
+Primero necesitas devcon.exe (viene en el Windows Driver Kit).
+
+Luego:
+
+devcon install %windir%\inf\netloop.inf *msloop
+
+Eso crea un adaptador Ethernet virtual que aparece como conectado.
+
+🔹 4️⃣ Asignarle IP manual
+New-NetIPAddress `
+  -InterfaceAlias "Ethernet 2" `
+  -IPAddress 192.168.100.10 `
+  -PrefixLength 24
+🔹 5️⃣ Método más simple (si tienes Windows Pro)
+
+Si usas Hyper-V, puedes crear un switch virtual:
+
+New-VMSwitch -Name "VirtualSwitch" -SwitchType Internal
+
+Eso crea automáticamente un adaptador virtual activo.
+
+🔥 Alternativa rápida (sin WDK)
+
+Si solo quieres que Windows detecte un adaptador activo sin mucho lío:
+
+Instala VirtualBox o VMware Workstation
+Ambos crean adaptadores virtuales automáticamente.
+
+🎯 Resumen realista
+
+✔ Crear adaptador virtual → Sí
+✔ Habilitar uno existente → Sí
+✔ Asignar IP → Sí
+❌ Forzar puerto físico a detectar cable → No
+
+Si me dices qué programa estás intentando engañar o qué estás intentando activar, te digo el método exacto que te conviene 😉
